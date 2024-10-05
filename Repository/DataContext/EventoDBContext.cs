@@ -6,7 +6,7 @@ using Repository.Configurations;
 
 namespace Repository.DataContext
 {
-    internal class DataContext : DbContext
+    internal class EventoDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Event> Events { get; set; }

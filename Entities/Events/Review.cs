@@ -9,15 +9,15 @@ namespace Entities.Events
 {
     public class Review
     {
-        public int ReviewId { get; set; }  // Primary Key
+        public int Id { get; set; }
 
-        public int EventId { get; set; }  // Foreign Key to Event
-        public Event Event { get; set; }  // Navigation Property
+        public int EventId { get; set; }
+        public Event Event { get; set; }
 
-        public int UserId { get; set; }  // Foreign Key to User
-        public User User { get; set; }  // Navigation Property
+        public int UserId { get; set; }
+        public User User { get; set; }
 
-        public int Rating { get; set; }  // Rating from 1 to 5
+        public int Rating { get; set; }
 
         public string ReviewText { get; set; }
 

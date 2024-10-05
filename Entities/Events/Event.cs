@@ -10,28 +10,19 @@ namespace Entities.Events
 {
     public class Event
     {
-        public int EventId { get; set; }  // Primary Key
-
-        public int OrganizerId { get; set; }  // Foreign Key to User
-        public User Organizer { get; set; }  // Navigation Property
-
+        public int Id { get; set; }
+        public int OrganizerId { get; set; }
+        public User Organizer { get; set; }
         public string EventName { get; set; }
-
         public string EventDescription { get; set; }
-
         public DateTime StartTime { get; set; }
-
         public DateTime EndTime { get; set; }
-
-        public int VenueId { get; set; }  // Foreign Key to Venue
-        public Venue Venue { get; set; }  // Navigation Property
-
+        public int VenueId { get; set; }
+        public Venue Venue { get; set; }
         public int TotalSeats { get; set; }
-
         public decimal PricePerTicket { get; set; }
 
         public DateTime CreatedAt { get; set; }
-
         public DateTime UpdatedAt { get; set; }
 
         // Navigation Properties

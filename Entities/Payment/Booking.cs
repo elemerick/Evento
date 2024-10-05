@@ -1,10 +1,5 @@
 ﻿using Entities.Events;
 using Entities.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities.Payment
 {
@@ -21,6 +16,7 @@ namespace Entities.Payment
         public BookingStatus BookingStatus { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public Payment Payment { get; set; }
     }
 
     public enum BookingStatus { Confirmed, Pending, Cancelled }

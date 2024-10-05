@@ -8,11 +8,12 @@ namespace Entities.Events
 {
     public class EventCategoryRelationship
     {
-        public int EventId { get; set; }  // Foreign Key to Event
-        public Event Event { get; set; }  // Navigation Property
+        public int Id { get; set; }
+        public int EventId { get; set; }
+        public Event Event { get; set; }
 
-        public int CategoryId { get; set; }  // Foreign Key to EventCategory
-        public EventCategory Category { get; set; }  // Navigation Property
+        public int CategoryId { get; set; }
+        public EventCategory Category { get; set; }
     }
 
 }
