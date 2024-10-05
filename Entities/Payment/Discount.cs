@@ -9,18 +9,12 @@ namespace Entities.Payment
 {
     public class Discount
     {
-        public int DiscountId { get; set; }  // Primary Key
-
-        public int EventId { get; set; }  // Foreign Key to Event
-        public Event Event { get; set; }  // Navigation Property
-
-        public string DiscountCode { get; set; }
-
+        public int Id { get; set; }
+        public int EventId { get; set; }
+        public Event Event { get; set; }
+        public required string DiscountCode { get; set; }
         public decimal DiscountAmount { get; set; }
-
         public DateTime ExpiryDate { get; set; }
-
         public DateTime CreatedAt { get; set; }
     }
-
 }

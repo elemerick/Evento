@@ -12,7 +12,7 @@ namespace Domain
             _repo = repo;
         }
 
-        public async Task SaveEntityAsync(T entity)
+        public virtual async Task SaveEntityAsync(T entity)
         {
             await _repo.AddAsync(entity);
             await _repo.SaveChangesAsync();

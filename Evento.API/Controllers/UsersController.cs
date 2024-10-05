@@ -1,6 +1,8 @@
-﻿using Domain.Interfaces;
+﻿using AutoMapper;
+using Domain.Interfaces;
+using Domain.Models;
+using Domain.Models.User;
 using Entities.Users;
-using Evento.API.Models.User.User;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,26 +14,37 @@ namespace Evento.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserDomain _domain;
+        private readonly IMapper _mapper;
+
+        public UsersController(IUserDomain domain, IMapper mapper)
+        {
+            _domain = domain;
+            _mapper = mapper;
+        }
+
         // GET: api/<UsersController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var users = await _domain.GetEntitiesAsync();
-            return Ok(users);
+            ICollection<UserDto> usersDto = _mapper.Map<ICollection<UserDto>>(users);
+            return Ok(usersDto);
         }
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var users = await _domain.GetEntityAsync(id);
-            return Ok(users);
+            var user = await _domain.GetEntityAsync(id);
+            var userDto = _mapper.Map<UserDto>(user);
+            return Ok(userDto);
         }
 
         // POST api/<UsersController>
         [HttpPost]
-        public void Post([FromBody] User user)
+        public void Post([FromBody] UserCreationDto userDto)
         {
+            var user = _mapper.Map<User>(userDto);
             _domain.SaveEntityAsync(user);
         }
 

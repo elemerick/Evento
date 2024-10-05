@@ -10,28 +10,18 @@ namespace Entities.Payment
 {
     public class Booking
     {
-        public int BookingId { get; set; }  // Primary Key
-
-        public int EventId { get; set; }  // Foreign Key to Event
-        public Event Event { get; set; }  // Navigation Property
-
-        public int UserId { get; set; }  // Foreign Key to User
-        public User User { get; set; }  // Navigation Property
-
+        public int Id { get; set; }
+        public int EventId { get; set; }
+        public Event Event { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public DateTime BookingDate { get; set; }
-
         public int NumberOfTickets { get; set; }
-
         public decimal TotalPrice { get; set; }
-
-        public string BookingStatus { get; set; }  // "confirmed", "pending", "cancelled"
-
+        public BookingStatus BookingStatus { get; set; }
         public DateTime CreatedAt { get; set; }
-
         public DateTime UpdatedAt { get; set; }
-
-        // Navigation Property
-        public Payment Payment { get; set; }
     }
 
+    public enum BookingStatus { Confirmed, Pending, Cancelled }
 }

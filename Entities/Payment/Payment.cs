@@ -8,20 +8,24 @@ namespace Entities.Payment
 {
     public class Payment
     {
-        public int PaymentId { get; set; }  // Primary Key
+        public int Id { get; set; }
+        public Guid PaymentId { get; set; }
 
-        public int BookingId { get; set; }  // Foreign Key to Booking
-        public Booking Booking { get; set; }  // Navigation Property
+        public int BookingId { get; set; }
+        public Booking Booking { get; set; }
 
         public DateTime PaymentDate { get; set; }
 
-        public string PaymentMethod { get; set; }  // "credit_card", "debit_card", "paypal", etc.
-
+        public int PaymentMethodId { get; set; }  
+        public PaymentMethod PaymentMethod { get; set; }
         public decimal Amount { get; set; }
 
-        public string PaymentStatus { get; set; }  // "successful", "failed", "pending"
+        public PaymentStatus PaymentStatus { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
+
+    public enum PaymentStatus { Successful, Failed, Pending }
 
 }
