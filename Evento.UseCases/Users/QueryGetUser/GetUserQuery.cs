@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Models.User;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Evento.UseCases.Users.QueryGetUser
 {
-    internal class GetUserQuery
+    public class GetUserQuery : IRequest<UserDto>
     {
+        public int? UserId { get; set; }
     }
 }

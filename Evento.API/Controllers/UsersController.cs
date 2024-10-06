@@ -1,4 +1,5 @@
-﻿using Evento.UseCases.Users.QueryGetUsers;
+﻿using Evento.UseCases.Users.QueryGetUser;
+using Evento.UseCases.Users.QueryGetUsers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,39 +25,38 @@ namespace Evento.API.Controllers
             var response = await _mediator.Send(new GetUsersQuery());
             return Ok(response);
         }
-/*
+
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var user = await _domain.GetEntityAsync(id);
-            var userDto = _mapper.Map<UserDto>(user);
-            return Ok(userDto);
+            var response = await _mediator.Send(new GetUserQuery() { UserId = id });
+            return Ok(response);
         }
+        /*
+                // POST api/<UsersController>
+                [HttpPost]
+                public void Post([FromBody] UserCreationDto userDto)
+                {
+                    var user = _mapper.Map<User>(userDto);
+                    _domain.SaveEntityAsync(user);
+                }
 
-        // POST api/<UsersController>
-        [HttpPost]
-        public void Post([FromBody] UserCreationDto userDto)
-        {
-            var user = _mapper.Map<User>(userDto);
-            _domain.SaveEntityAsync(user);
-        }
+                // PUT api/<UsersController>/5
+                [HttpPut("{id}")]
+                public async Task<IActionResult> Put(int id, [FromBody] User user)
+                {
+                    await _domain.UpdateEntityAsync(user);
+                    return Ok();
+                }
 
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] User user)
-        {
-            await _domain.UpdateEntityAsync(user);
-            return Ok();
-        }
-
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var user = await _domain.GetEntityAsync(id);
-            await _domain.DeleteEntityAsync(user);
-            return Ok();
-        }*/
+                // DELETE api/<UsersController>/5
+                [HttpDelete("{id}")]
+                public async Task<IActionResult> Delete(int id)
+                {
+                    var user = await _domain.GetEntityAsync(id);
+                    await _domain.DeleteEntityAsync(user);
+                    return Ok();
+                }*/
     }
 }
