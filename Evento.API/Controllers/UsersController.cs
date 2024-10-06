@@ -1,4 +1,6 @@
-﻿using Evento.UseCases.Users.QueryGetUser;
+﻿using Domain.Models.User;
+using Evento.UseCases.Users.CommandCreateUser;
+using Evento.UseCases.Users.QueryGetUser;
 using Evento.UseCases.Users.QueryGetUsers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,15 +35,14 @@ namespace Evento.API.Controllers
             var response = await _mediator.Send(new GetUserQuery() { UserId = id });
             return Ok(response);
         }
-        /*
-                // POST api/<UsersController>
-                [HttpPost]
-                public void Post([FromBody] UserCreationDto userDto)
-                {
-                    var user = _mapper.Map<User>(userDto);
-                    _domain.SaveEntityAsync(user);
-                }
-
+        // POST api/<UsersController>
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] UserCreationDto userDto)
+        {
+            var response = await _mediator.Send(new CreateUserCommand() { User = userDto });
+            return Ok(response);
+        }
+/*
                 // PUT api/<UsersController>/5
                 [HttpPut("{id}")]
                 public async Task<IActionResult> Put(int id, [FromBody] User user)

@@ -14,6 +14,6 @@
 
         public string Password { get; set; }
 
-        public string UserRole { get; set; }  // "customer", "organizer", or "admin"
+        public int RoleId { get; set; }  // "customer", "organizer", or "admin"
     }
 }
