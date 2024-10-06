@@ -18,7 +18,8 @@ namespace Entities.Users
         public DateTime UpdatedAt { get; set; }
 
         // Navigation Properties
-        public ICollection<Booking> Bookings { get; set; }  // Relationship: User can have many bookings
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
         public ICollection<Event> OrganizedEvents { get; set; }  // Relationship: User can organize many events
     }
 

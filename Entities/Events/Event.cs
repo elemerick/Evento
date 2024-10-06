@@ -26,6 +26,8 @@ namespace Entities.Events
         public DateTime UpdatedAt { get; set; }
 
         // Navigation Properties
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Discount> Discounts { get; set; }
         public ICollection<Booking> Bookings { get; set; }
         public ICollection<EventCategoryRelationship> EventCategories { get; set; }
     }

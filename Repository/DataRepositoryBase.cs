@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Repository.DataContext;
 
 namespace Repository
 {
     public class DataRepositoryBase<T> : IDataRepositoryBase<T> where T : class
     {
-        private readonly DbContext _context;
+        private readonly EventoDBContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public DataRepositoryBase(DbContext context)
+        public DataRepositoryBase(EventoDBContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

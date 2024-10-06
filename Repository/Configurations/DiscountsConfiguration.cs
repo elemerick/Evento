@@ -22,7 +22,14 @@ namespace Repository.Configurations
             builder.HasAlternateKey(r => r.DiscountCode);
 
             builder.Property(r => r.EventId).IsRequired();
+            builder.Property(r => r.DiscountAmount).IsRequired().HasColumnType("decimal(10,3)");
 
+            builder.HasOne(d => d.Event)
+                .WithMany(e => e.Discounts)
+                .HasForeignKey(e => e.EventId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(u => u.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("GETDATE()");
         }
     }
 }

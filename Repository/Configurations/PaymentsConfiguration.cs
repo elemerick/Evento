@@ -18,9 +18,20 @@ namespace Repository.Configurations
             builder.Property(p => p.PaymentId).ValueGeneratedOnAdd();
             builder.Property(p => p.PaymentMethodId).IsRequired();
             builder.Property(p => p.BookingId).IsRequired();
-            builder.Property(p => p.Amount).IsRequired();
-            builder.Property(p => p.PaymentStatus).HasDefaultValue(PaymentStatus.Pending);
+            builder.Property(p => p.Amount).IsRequired().HasColumnType("decimal(10,3)");
+            builder.Property(p => p.PaymentStatus)
+                .IsRequired()
+                .HasDefaultValue(PaymentStatus.Pending)
+                .HasSentinel(PaymentStatus.Pending);
 
+            builder.HasOne(e => e.PaymentMethod)
+                .WithMany(pm => pm.Payments)
+                .HasForeignKey(e => e.PaymentMethodId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(p => p.Booking)
+                .WithOne(b => b.Payment)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(u => u.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("GETDATE()");
             builder.Property(u => u.UpdatedAt).ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("GETDATE()");

@@ -2,14 +2,16 @@
 using Domain.Interfaces;
 using Entities.Users;
 using Repository;
+using Repository.Interfaces;
 
 namespace Domain.DomainLogic
 {
     public class UserDomain : DomainBase<User>, IUserDomain
     {
-        //private readonly IUserRepository _repo;
-        public UserDomain(IDataRepositoryBase<User> repo) : base(repo)
+        private readonly IUsersRepository _repo;
+        public UserDomain(IUsersRepository repo) : base(repo)
         {
+            _repo = repo;
         }
 
         public override async Task SaveEntityAsync(User user)

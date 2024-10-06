@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Configurations
 {
-    internal class EventCategoryConfiguration : IEntityTypeConfiguration<EventCategory>
+    internal class EventCategoriesConfiguration : IEntityTypeConfiguration<EventCategory>
     {
         public void Configure(EntityTypeBuilder<EventCategory> builder)
         {

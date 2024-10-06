@@ -24,6 +24,16 @@ namespace Repository.Configurations
             builder.Property(r => r.UserId).IsRequired();
             builder.Property(r => r.EventId).IsRequired();
 
+            builder.HasOne(b => b.Event)
+                .WithMany(e => e.Reviews)
+                .HasForeignKey(b => b.EventId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(b => b.User)
+                .WithMany(u => u.Reviews)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(r => r.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("GETDATE()");
 
         }

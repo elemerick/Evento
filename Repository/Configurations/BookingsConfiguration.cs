@@ -20,6 +20,21 @@ namespace Repository.Configurations
             builder.Property(p => p.UserId).IsRequired();
             builder.Property(p => p.NumberOfTickets).IsRequired();
             builder.Property(p => p.BookingDate).IsRequired();
+            builder.Property(p => p.TotalPrice).IsRequired().HasColumnType("decimal(10,3)");
+
+            builder.HasOne(b => b.Event)
+                .WithMany(e => e.Bookings)
+                .HasForeignKey(b => b.EventId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(b => b.User)
+                .WithMany(u => u.Bookings)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(b => b.Payment)
+                .WithOne(u => u.Booking)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(u => u.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("GETDATE()");
             builder.Property(u => u.UpdatedAt).ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("GETDATE()");

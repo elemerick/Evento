@@ -12,7 +12,7 @@ using Repository.DataContext;
 namespace Repository.Migrations
 {
     [DbContext(typeof(EventoDBContext))]
-    [Migration("20241005202607_InitialCreate")]
+    [Migration("20241006103926_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,7 +34,9 @@ namespace Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -51,7 +53,7 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PricePerTicket")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,3)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
@@ -60,7 +62,9 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("VenueId")
                         .HasColumnType("int");
@@ -83,14 +87,19 @@ namespace Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Id");
 
@@ -113,9 +122,9 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasAlternateKey("EventId", "CategoryId");
 
-                    b.HasIndex("EventId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("EventCategoriesRelationship");
                 });
@@ -129,7 +138,9 @@ namespace Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -139,7 +150,8 @@ namespace Repository.Migrations
 
                     b.Property<string>("ReviewText")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -214,7 +226,9 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -223,10 +237,12 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,3)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -249,14 +265,17 @@ namespace Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,3)");
 
                     b.Property<string>("DiscountCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -265,6 +284,8 @@ namespace Repository.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("DiscountCode");
 
                     b.HasIndex("EventId");
 
@@ -280,28 +301,35 @@ namespace Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,3)");
 
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("PaymentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
 
                     b.Property<int>("PaymentStatus")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(2);
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Id");
 
@@ -327,7 +355,8 @@ namespace Repository.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
 
@@ -354,6 +383,26 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Customer",
+                            Name = "Customer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Organizer",
+                            Name = "Organizer"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Administrator",
+                            Name = "Administrator"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Users.User", b =>
@@ -414,6 +463,21 @@ namespace Repository.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "el.emerick@gmail.com",
+                            FirstName = "Super",
+                            LastName = "Admin",
+                            Password = "Admin@123",
+                            PhoneNumber = "+37061224853",
+                            RoleId = 1,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Username = "emerick"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Events.Event", b =>
@@ -421,13 +485,13 @@ namespace Repository.Migrations
                     b.HasOne("Entities.Users.User", "Organizer")
                         .WithMany("OrganizedEvents")
                         .HasForeignKey("OrganizerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Entities.Events.Venue", "Venue")
                         .WithMany("Events")
                         .HasForeignKey("VenueId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Organizer");
@@ -440,13 +504,13 @@ namespace Repository.Migrations
                     b.HasOne("Entities.Events.EventCategory", "Category")
                         .WithMany("EventCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Entities.Events.Event", "Event")
                         .WithMany("EventCategories")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -457,15 +521,15 @@ namespace Repository.Migrations
             modelBuilder.Entity("Entities.Events.Review", b =>
                 {
                     b.HasOne("Entities.Events.Event", "Event")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Entities.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Event");
@@ -478,13 +542,13 @@ namespace Repository.Migrations
                     b.HasOne("Entities.Events.Event", "Event")
                         .WithMany("Bookings")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Entities.Users.User", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Event");
@@ -495,9 +559,9 @@ namespace Repository.Migrations
             modelBuilder.Entity("Entities.Payment.Discount", b =>
                 {
                     b.HasOne("Entities.Events.Event", "Event")
-                        .WithMany()
+                        .WithMany("Discounts")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Event");
@@ -508,13 +572,13 @@ namespace Repository.Migrations
                     b.HasOne("Entities.Payment.Booking", "Booking")
                         .WithOne("Payment")
                         .HasForeignKey("Entities.Payment.Payment", "BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Entities.Payment.PaymentMethod", "PaymentMethod")
-                        .WithMany()
+                        .WithMany("Payments")
                         .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Booking");
@@ -537,7 +601,11 @@ namespace Repository.Migrations
                 {
                     b.Navigation("Bookings");
 
+                    b.Navigation("Discounts");
+
                     b.Navigation("EventCategories");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("Entities.Events.EventCategory", b =>
@@ -556,6 +624,11 @@ namespace Repository.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Entities.Payment.PaymentMethod", b =>
+                {
+                    b.Navigation("Payments");
+                });
+
             modelBuilder.Entity("Entities.Users.Role", b =>
                 {
                     b.Navigation("Users");
@@ -566,6 +639,8 @@ namespace Repository.Migrations
                     b.Navigation("Bookings");
 
                     b.Navigation("OrganizedEvents");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
