@@ -2,6 +2,7 @@ using Domain;
 using Domain.DomainLogic;
 using Domain.Interfaces;
 using Evento.API.Mapper;
+using Evento.UseCases.Users.QueryGetUsers;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.DataAccessLogic;
@@ -19,7 +20,8 @@ builder.Services.AddScoped(typeof(IDataRepositoryBase<>), typeof(DataRepositoryB
 builder.Services.AddScoped(typeof(IDomainBase<>), typeof(DomainBase<>));
 builder.Services.AddScoped<IUserDomain, UserDomain>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-
+//builder.Services.AddApplicationDependencies();
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(typeof(GetUsersHandler).Assembly));
 builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(typeof(UserProfile));

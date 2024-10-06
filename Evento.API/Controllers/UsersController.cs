@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using Domain.Interfaces;
-using Domain.Models;
-using Domain.Models.User;
-using Entities.Users;
+﻿using Evento.UseCases.Users.QueryGetUsers;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,24 +10,21 @@ namespace Evento.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserDomain _domain;
-        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public UsersController(IUserDomain domain, IMapper mapper)
+        public UsersController(IMediator mediator)
         {
-            _domain = domain;
-            _mapper = mapper;
+            _mediator = mediator;
         }
 
         // GET: api/<UsersController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var users = await _domain.GetEntitiesAsync();
-            ICollection<UserDto> usersDto = _mapper.Map<ICollection<UserDto>>(users);
-            return Ok(usersDto);
+            var response = await _mediator.Send(new GetUsersQuery());
+            return Ok(response);
         }
-
+/*
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
@@ -63,6 +57,6 @@ namespace Evento.API.Controllers
             var user = await _domain.GetEntityAsync(id);
             await _domain.DeleteEntityAsync(user);
             return Ok();
-        }
+        }*/
     }
 }

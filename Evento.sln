@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evento.API", "Evento.API\Evento.API.csproj", "{FAA9CDAB-1D89-4C19-957D-EB50B08E287A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evento.UseCases", "Evento.UseCases\Evento.UseCases.csproj", "{D72835E6-8DEA-42CA-A93E-22E17489A426}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FAA9CDAB-1D89-4C19-957D-EB50B08E287A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAA9CDAB-1D89-4C19-957D-EB50B08E287A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAA9CDAB-1D89-4C19-957D-EB50B08E287A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D72835E6-8DEA-42CA-A93E-22E17489A426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D72835E6-8DEA-42CA-A93E-22E17489A426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D72835E6-8DEA-42CA-A93E-22E17489A426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D72835E6-8DEA-42CA-A93E-22E17489A426}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
