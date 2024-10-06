@@ -1,5 +1,8 @@
 ﻿using Domain.Models.User;
+using Entities.Users;
 using Evento.UseCases.Users.CommandCreateUser;
+using Evento.UseCases.Users.CommandDeleteUser;
+using Evento.UseCases.Users.CommandUpdateUser;
 using Evento.UseCases.Users.QueryGetUser;
 using Evento.UseCases.Users.QueryGetUsers;
 using MediatR;
@@ -42,22 +45,21 @@ namespace Evento.API.Controllers
             var response = await _mediator.Send(new CreateUserCommand() { User = userDto });
             return Ok(response);
         }
-/*
-                // PUT api/<UsersController>/5
-                [HttpPut("{id}")]
-                public async Task<IActionResult> Put(int id, [FromBody] User user)
-                {
-                    await _domain.UpdateEntityAsync(user);
-                    return Ok();
-                }
 
-                // DELETE api/<UsersController>/5
-                [HttpDelete("{id}")]
-                public async Task<IActionResult> Delete(int id)
-                {
-                    var user = await _domain.GetEntityAsync(id);
-                    await _domain.DeleteEntityAsync(user);
-                    return Ok();
-                }*/
+        // PUT api/<UsersController>/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateUserCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        // DELETE api/<UsersController>/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeleteUserCommand() { UserId = id });
+            return Ok();
+        }
     }
 }

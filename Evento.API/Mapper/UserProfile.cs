@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Models.User;
 using Entities.Users;
+using Evento.UseCases.Users.CommandUpdateUser;
 
 namespace Evento.API.Mapper
 {
@@ -16,6 +17,7 @@ namespace Evento.API.Mapper
             CreateMap<UserCreationDto, User>().ReverseMap();
 
             CreateMap<UserUpdateDto, User>().ReverseMap(); 
+            CreateMap<UpdateUserCommand, User>().ReverseMap(); 
         }
     }
 }
