@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Domain.Models.User;
 using Entities.Users;
 using MediatR;
 using Repository.Interfaces;
@@ -21,18 +20,17 @@ namespace Evento.UseCases.Users.CommandCreateUser
             _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
-        public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             var validator = new CreateUserCommandValidator();
-            var result = validator.Validate(request.User);
+            var result = validator.Validate(command);
 
             if (!result.IsValid)
             {
                 throw new Exception(nameof(result));
             }
-            var user = _mapper.Map<User>(request.User);
-            await _repo.AddAsync(user);
-            await _repo.SaveChangesAsync();
+            var user = _mapper.Map<User>(command);
+            await _repo.SaveEntityAsync(user);
             return true;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repository.DataContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,34 +7,26 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class DataRepository<T> : IDataRepository<T> where T : class
+    public class DataRepository<T> : DataRepositoryBase<T>, IDataRepository<T> where T : class
     {
-        private readonly IDataRepositoryBase<T> _repo;
-
-        public DataRepository(IDataRepositoryBase<T> repo)
+        public DataRepository(EventoDBContext context) : base(context)
         {
-            _repo = repo;
-        }
-
-        public virtual async Task SaveEntityAsync(T entity)
-        {
-            await _repo.AddAsync(entity);
-            await _repo.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetEntitiesAsync()
         {
-            return await _repo.GetAllAsync();
+            return await GetAllAsync();
         }
 
         public async Task<T> GetEntityAsync(object id)
         {
-            return await _repo.GetByIdAsync(id);
+            return await GetByIdAsync(id);
         }
 
-        public async Task SaveChangesAsync()
+        public virtual async Task SaveEntityAsync(T entity)
         {
-            await _repo.SaveChangesAsync();
+            await AddAsync(entity);
+            await SaveChangesAsync();
         }
 
         public async Task UpdateEntityAsync(object entityId, T entity)
@@ -51,15 +44,15 @@ namespace Repository
                         property.SetValue(existingEntity, newValue);
                     }
                 }
-                await _repo.SaveChangesAsync();
+                await SaveChangesAsync();
             }
         }
+
         public async Task DeleteEntityAsync(object entityId)
         {
             T entity = await GetEntityAsync(entityId);
-            await _repo.DeleteAsync(entity);
-            await _repo.SaveChangesAsync();
+            await DeleteAsync(entity);
+            await SaveChangesAsync();
         }
-
     }
 }

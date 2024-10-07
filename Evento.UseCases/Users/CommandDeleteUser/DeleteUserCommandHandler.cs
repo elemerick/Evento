@@ -25,9 +25,7 @@ namespace Evento.UseCases.Users.CommandDeleteUser
             {
                 throw new Exception(nameof(result));
             }
-            var user = await _repo.GetByIdAsync(command.UserId);
-            await _repo.DeleteAsync(user);
-            await _repo.SaveChangesAsync();
+            await _repo.DeleteEntityAsync(command.UserId);
         }
     }
 }

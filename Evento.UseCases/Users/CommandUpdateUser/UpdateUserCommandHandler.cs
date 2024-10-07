@@ -26,8 +26,7 @@ namespace Evento.UseCases.Users.CommandUpdateUser
             var result = validator.Validate(command);
             if (result.IsValid)
             {
-                await _repo.UpdateAsync(_mapper.Map<User>(command));
-                await _repo.SaveChangesAsync();
+                await _repo.UpdateEntityAsync(command.UserId, _mapper.Map<User>(command));
             }
             
         }

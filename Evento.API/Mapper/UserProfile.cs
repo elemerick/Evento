@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Domain.Models.User;
 using Entities.Users;
+using Evento.UseCases.Users;
+using Evento.UseCases.Users.CommandCreateUser;
 using Evento.UseCases.Users.CommandUpdateUser;
 
 namespace Evento.API.Mapper
@@ -14,9 +15,7 @@ namespace Evento.API.Mapper
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
             // If you need two-way mapping (DTO back to Entity)
             
-            CreateMap<UserCreationDto, User>().ReverseMap();
-
-            CreateMap<UserUpdateDto, User>().ReverseMap(); 
+            CreateMap<CreateUserCommand, User>().ReverseMap();
             CreateMap<UpdateUserCommand, User>().ReverseMap(); 
         }
     }

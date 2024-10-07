@@ -1,5 +1,4 @@
-﻿using Domain.Models.User;
-using Entities.Users;
+﻿using Entities.Users;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Evento.UseCases.Users.CommandCreateUser
 {
-    internal class CreateUserCommandValidator : AbstractValidator<UserCreationDto>
+    internal class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
         public CreateUserCommandValidator()
         {

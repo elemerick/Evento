@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Domain.Models.User;
 using MediatR;
 using Repository.Interfaces;
 using System;
@@ -22,7 +21,7 @@ namespace Evento.UseCases.Users.QueryGetUsers
 
         public async Task<ICollection<UserDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await _repo.GetAllAsync();
+            var users = await _repo.GetEntitiesAsync();
             ICollection<UserDto> usersDto = _mapper.Map<ICollection<UserDto>>(users);
             return usersDto;
         }

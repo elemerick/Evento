@@ -1,5 +1,4 @@
-﻿using Domain.Models.User;
-using Entities.Users;
+﻿using Entities.Users;
 using Evento.UseCases.Users.CommandCreateUser;
 using Evento.UseCases.Users.CommandDeleteUser;
 using Evento.UseCases.Users.CommandUpdateUser;
@@ -40,9 +39,9 @@ namespace Evento.API.Controllers
         }
         // POST api/<UsersController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UserCreationDto userDto)
+        public async Task<ActionResult> Post([FromBody] CreateUserCommand command)
         {
-            var response = await _mediator.Send(new CreateUserCommand() { User = userDto });
+            var response = await _mediator.Send(command);
             return Ok(response);
         }
 
@@ -50,6 +49,7 @@ namespace Evento.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateUserCommand command)
         {
+            command.UserId = id;
             await _mediator.Send(command);
             return Ok();
         }

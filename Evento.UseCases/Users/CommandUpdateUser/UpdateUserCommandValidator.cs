@@ -25,6 +25,11 @@ namespace Evento.UseCases.Users.CommandUpdateUser
             RuleFor(user => user.Email)
                 .NotEmpty().WithMessage("Email is required.")
                 .EmailAddress().WithMessage("A valid email is required.");
+
+            RuleFor(user => user.UserId)
+                .NotNull().WithMessage("Key of the object is required")
+                .NotEmpty().WithMessage("Object ID cannot be null")
+                .GreaterThanOrEqualTo(0);
         }
     }
 }

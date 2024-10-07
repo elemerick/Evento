@@ -1,6 +1,4 @@
-using Domain;
-using Domain.DomainLogic;
-using Domain.Interfaces;
+
 using Evento.API.Mapper;
 using Evento.UseCases.Users.QueryGetUsers;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +15,6 @@ builder.Services.AddDbContext<EventoDBContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped(typeof(IDataRepositoryBase<>), typeof(DataRepositoryBase<>));
-builder.Services.AddScoped(typeof(IDomainBase<>), typeof(DomainBase<>));
-builder.Services.AddScoped<IUserDomain, UserDomain>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 //builder.Services.AddApplicationDependencies();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(typeof(GetUsersHandler).Assembly));
