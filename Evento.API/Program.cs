@@ -15,6 +15,7 @@ builder.Services.AddDbContext<EventoDBContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped(typeof(IDataRepositoryBase<>), typeof(DataRepositoryBase<>));
+builder.Services.AddScoped(typeof(IDataRepository<>), typeof(DataRepository<>));
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 //builder.Services.AddApplicationDependencies();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(typeof(GetUsersHandler).Assembly));

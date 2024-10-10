@@ -5,7 +5,7 @@ namespace Repository
 {
     public class DataRepositoryBase<T> : IDataRepositoryBase<T> where T : class
     {
-        private readonly EventoDBContext _context;
+        protected readonly EventoDBContext _context;
         private readonly DbSet<T> _dbSet;
 
         public DataRepositoryBase(EventoDBContext context)

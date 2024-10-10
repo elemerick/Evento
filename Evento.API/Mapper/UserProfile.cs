@@ -16,7 +16,7 @@ namespace Evento.API.Mapper
             // If you need two-way mapping (DTO back to Entity)
             
             CreateMap<CreateUserCommand, User>().ReverseMap();
-            CreateMap<UpdateUserCommand, User>().ReverseMap(); 
+            CreateMap<UserUpdateDto, User>().ReverseMap(); 
         }
     }
 }

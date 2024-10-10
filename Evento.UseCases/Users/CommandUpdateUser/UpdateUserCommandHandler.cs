@@ -2,11 +2,6 @@
 using Entities.Users;
 using MediatR;
 using Repository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Evento.UseCases.Users.CommandUpdateUser
 {
@@ -23,10 +18,10 @@ namespace Evento.UseCases.Users.CommandUpdateUser
         public async Task Handle(UpdateUserCommand command, CancellationToken cancellationToken)
         {
             var validator = new UpdateUserCommandValidator();
-            var result = validator.Validate(command);
+            var result = validator.Validate(command.User);
             if (result.IsValid)
             {
-                await _repo.UpdateEntityAsync(command.UserId, _mapper.Map<User>(command));
+                await _repo.UpdateEntityAsync(command.UserId, _mapper.Map<User>(command.User));
             }
             
         }

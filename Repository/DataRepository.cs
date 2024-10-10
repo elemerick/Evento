@@ -36,8 +36,12 @@ namespace Repository
             {
                 //_context.Entry(existingEntity).CurrentValues.SetValues(entity);
                 var entityType = typeof(T);
+                var keyName = _context?.Model?.FindEntityType(entityType)?.FindPrimaryKey()?.Properties
+                .Select(p => p.Name).Single();
+
                 foreach (var property in entityType.GetProperties())
                 {
+                    if (property.Name == keyName) continue;
                     var newValue = property.GetValue(entity);
                     if (newValue is not null && !(newValue is string str && string.IsNullOrEmpty(str)))
                     {

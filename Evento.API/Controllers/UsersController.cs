@@ -1,4 +1,5 @@
 ﻿using Entities.Users;
+using Evento.UseCases.Users;
 using Evento.UseCases.Users.CommandCreateUser;
 using Evento.UseCases.Users.CommandDeleteUser;
 using Evento.UseCases.Users.CommandUpdateUser;
@@ -47,10 +48,9 @@ namespace Evento.API.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UpdateUserCommand command)
+        public async Task<IActionResult> Put(int id, [FromBody] UserUpdateDto user)
         {
-            command.UserId = id;
-            await _mediator.Send(command);
+            await _mediator.Send(new UpdateUserCommand() { User = user, UserId = id });
             return Ok();
         }
 
