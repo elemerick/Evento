@@ -9,5 +9,6 @@ namespace Repository.Interfaces
 {
     public interface IUsersRepository : IDataRepository<User>
     {
+        Task UpdateUserAsync(int id, User user);
     }
 }

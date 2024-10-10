@@ -17,5 +17,24 @@ namespace Repository.DataAccessLogic
         {
             _context = context;
         }
+
+        public async Task UpdateUserAsync(int id, User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            User? oldUser = await _context.Users.FindAsync(id);
+            if (oldUser == null)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+            oldUser.FirstName = user.FirstName;
+            oldUser.LastName = user.LastName;
+            oldUser.PhoneNumber = user.PhoneNumber;
+            oldUser.Email = user.Email;
+            _context.Users.Update(oldUser);
+            await _context.SaveChangesAsync();
+        }
     }
 }
