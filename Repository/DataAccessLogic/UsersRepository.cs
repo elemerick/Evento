@@ -18,6 +18,20 @@ namespace Repository.DataAccessLogic
             _context = context;
         }
 
+        public async Task<User?> GetUserAsync(int id)
+        {
+            return await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<ICollection<User>> GetUsersAsync()
+        {
+            return await _context.Users
+                .Include(u => u.Role)
+                .ToListAsync();
+        }
+
         public async Task UpdateUserAsync(int id, User user)
         {
             if (user == null)

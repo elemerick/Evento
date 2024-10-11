@@ -17,7 +17,7 @@ namespace Evento.UseCases.Users.QueryGetUser
 
         public async Task<UserDto> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _repo.GetEntityAsync(request.UserId);
+            var user = await _repo.GetUserAsync((int)request.UserId);
             var userDto = _mapper.Map<UserDto>(user);
             return userDto;
         }
