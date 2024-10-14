@@ -13,7 +13,7 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<T>> GetEntitiesAsync()
+        public async Task<ICollection<T>> GetEntitiesAsync()
         {
             return await GetAllAsync();
         }

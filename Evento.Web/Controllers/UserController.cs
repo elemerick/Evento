@@ -1,23 +1,29 @@
 ﻿using AutoMapper;
 using Evento.Web.Http;
+using Evento.Web.Models.Role;
 using Evento.Web.Models.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Evento.Web.Controllers
 {
     public class UserController : Controller
     {
         private readonly IApiClient<UserViewModel> _apiClient;
+        private readonly IApiClient<RoleViewModel> _roleClient;
         private readonly IMapper _mapper;
         private readonly string baseUrl;
 
         public UserController(IApiClient<UserViewModel> apiClient,
+            IApiClient<RoleViewModel> roleClient,
             IConfiguration configuration,
             IMapper mapper)
         {
             _apiClient = apiClient
                 ?? throw new ArgumentNullException(nameof(apiClient));
+            _roleClient = roleClient
+                ?? throw new ArgumentNullException(nameof(roleClient));
             baseUrl = configuration["BaseUrl"]
                 ?? throw new ArgumentNullException($"configuration {nameof(configuration)}");
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -38,8 +44,10 @@ namespace Evento.Web.Controllers
         }
 
         // GET: UserController/Create
-        public ActionResult Create()
-        {
+        public async Task<ActionResult> Create()
+        {   
+            var roles = await _roleClient.GetListAsync($"{baseUrl}/roles");
+            ViewBag.Roles = _mapper.Map<ICollection<SelectListItem>>(roles);
             return View();
         }
 
